@@ -1,0 +1,10 @@
+command = "/opt/navidrome"
+
+[restart]
+strategy = "never"
+backoff = "0s"
+attempts = 0
+
+[environment]
+additional = { ND_MUSICFOLDER = "/music", ND_DATAFOLDER = "/data", ND_CONFIGFILE = "/data/navidrome.toml", ND_PORT = "8080" }
+keep-env = true
