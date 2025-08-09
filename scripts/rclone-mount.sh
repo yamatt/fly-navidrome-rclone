@@ -6,17 +6,20 @@ set -euo pipefail
 
 # Check arguments
 if [ $# -lt 3 ]; then
-    echo "Usage: $0 <remote_type> <remote_path> <mount_point> [remote_name] [rclone_options...]"
+    echo "Usage: $0 <remote_type> <remote_path> <mount_point> [rclone_options...]"
     echo "   or: $0 <remote_name> <remote_type> <remote_path> <mount_point> [rclone_options...]"
     echo ""
-    echo "Examples:"
-    echo "  $0 b2 :my-bucket /mnt/b2                    # Uses auto-generated name 'b2_remote'"
-    echo "  $0 ftp :/ /mnt/ftp                          # Uses auto-generated name 'ftp_remote'"
-    echo "  $0 myb2 b2 :my-bucket /mnt/b2               # Uses custom name 'myb2'"
-    echo "  $0 server1 ftp :/ /mnt/ftp1                 # Uses custom name 'server1'"
+    echo "Remote path can be 'auto' to use RCLONE_CONFIG_<NAME>_PATH env var"
     echo ""
-    echo "Set credentials via environment variables:"
+    echo "Examples:"
+    echo "  $0 b2 auto /mnt/b2                          # Uses RCLONE_CONFIG_B2_REMOTE_PATH"
+    echo "  $0 b2 :my-bucket /mnt/b2                    # Direct bucket name"
+    echo "  $0 myb2 b2 auto /mnt/b2                     # Uses RCLONE_CONFIG_MYB2_PATH"
+    echo "  $0 ftp auto /mnt/ftp                        # Uses RCLONE_CONFIG_FTP_REMOTE_PATH"
+    echo ""
+    echo "Set credentials and path via environment variables:"
     echo "  RCLONE_CONFIG_<REMOTE_NAME>_TYPE=<type>"
+    echo "  RCLONE_CONFIG_<REMOTE_NAME>_PATH=<path>"
     echo "  RCLONE_CONFIG_<REMOTE_NAME>_HOST=<host>"
     echo "  etc..."
     exit 1
