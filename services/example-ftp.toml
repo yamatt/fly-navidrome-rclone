@@ -1,0 +1,10 @@
+name = "ftp-rclone-mount"
+command = "./mount-remote.sh ftp :/ /mnt/ftp"
+
+[restart]
+strategy = "never"
+backoff = "0s"
+attempts = 0
+
+[environment]
+keep-env = true

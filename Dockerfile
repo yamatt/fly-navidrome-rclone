@@ -15,5 +15,6 @@ RUN mkdir /data /music
 
 COPY --from=navidrome /app/navidrome /opt/navidrome
 
+COPY ./scripts/rclone-mount.sh /opt/rclone-mount.sh
 
 ENTRYPOINT ["/opt/horust", "--services-path", "/etc/services"]
