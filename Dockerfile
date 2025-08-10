@@ -10,11 +10,17 @@ COPY ./services /etc/services
 
 COPY --from=rclone /opt/bitnami/rclone/bin/rclone /opt/rclone
 
-
-RUN mkdir /data /music
+RUN apt-get update --yes && \
+    apt-get install --no-install-recommends --no-install-suggests --yes fuse3=3.14.0-4 ca-certificates=20240203 && \
+    apt-get clean autoclean --yes && \
+    apt-get autoremove --yes && \
+    rm -rf /var/cache/apt/archives* /var/lib/apt/lists/* && \
+    mkdir -p /data /music
 
 COPY --from=navidrome /app/navidrome /opt/navidrome
 
 COPY ./scripts/rclone-mount.sh /opt/rclone-mount.sh
+
+
 
 ENTRYPOINT ["/opt/horust", "--services-path", "/etc/services"]
