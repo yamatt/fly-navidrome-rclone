@@ -47,7 +47,7 @@ EXTRA_OPTIONS="$@"
 mkdir -p "$MOUNT_POINT"
 
 # Build the rclone command - use remote name directly
-RCLONE_CMD="rclone mount ${REMOTE_NAME}${REMOTE_PATH} ${MOUNT_POINT}"
+RCLONE_CMD="/opt/rclone mount ${REMOTE_NAME}${REMOTE_PATH} ${MOUNT_POINT}"
 
 # Add backend-specific optimizations
 case "$REMOTE_TYPE" in
