@@ -26,7 +26,7 @@ if [ $# -lt 3 ]; then
 fi
 
 # Parse arguments - detect if remote name is provided
-if [[ "$2" =~ ^: ]] || [[ "$2" == /* ]]; then
+if [[ "$2" == "auto" ]] || [[ "$2" =~ ^: ]] || [[ "$2" == /* ]]; then
     # Format: <type> <path> <mount> [options...]
     REMOTE_TYPE="$1"
     REMOTE_NAME="${REMOTE_TYPE}_remote"
@@ -42,6 +42,18 @@ else
     shift 4
 fi
 EXTRA_OPTIONS="$@"
+
+# Expand "auto" into actual path from environment variable
+if [[ "$REMOTE_PATH" == "auto" ]]; then
+    # Uppercase and replace dashes with underscores for env var naming
+    ENV_REMOTE_NAME=$(echo "$REMOTE_NAME" | tr '[:lower:]-' '[:upper:]_')
+    ENV_PATH_VAR="RCLONE_CONFIG_${ENV_REMOTE_NAME}_REMOTE_PATH"
+    if [[ -z "${!ENV_PATH_VAR:-}" ]]; then
+        echo "Error: Environment variable $ENV_PATH_VAR is not set."
+        exit 1
+    fi
+    REMOTE_PATH="${!ENV_PATH_VAR}"
+fi
 
 # Create mount directory if it doesn't exist
 mkdir -p "$MOUNT_POINT"
