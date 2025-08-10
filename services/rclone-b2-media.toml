@@ -1,5 +1,5 @@
 name = "rclone-b2-media-mount"
-command = "/opt/mount-remote.sh b2 auto /music/media"
+command = "/opt/rclone-mount.sh b2 auto /music/media"
 
 [restart]
 strategy = "never"
