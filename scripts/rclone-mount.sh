@@ -47,7 +47,7 @@ EXTRA_OPTIONS="$@"
 if [[ "$REMOTE_PATH" == "auto" ]]; then
     # Uppercase and replace dashes with underscores for env var naming
     ENV_REMOTE_NAME=$(echo "$REMOTE_NAME" | tr '[:lower:]-' '[:upper:]_')
-    ENV_PATH_VAR="RCLONE_CONFIG_${ENV_REMOTE_NAME}_REMOTE_PATH"
+    ENV_PATH_VAR="RCLONE_CONFIG_${ENV_REMOTE_NAME}_PATH"
     if [[ -z "${!ENV_PATH_VAR:-}" ]]; then
         echo "Error: Environment variable $ENV_PATH_VAR is not set."
         exit 1
