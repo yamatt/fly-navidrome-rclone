@@ -44,6 +44,10 @@ fi
 EXTRA_OPTIONS="$@"
 
 # Expand "auto" into actual path from environment variable
+if [[ "$REMOTE_TYPE" == "ftp" ]]; then
+    REMOTE_NAME=":ftp:"
+fi
+
 if [[ "$REMOTE_PATH" == "auto" ]]; then
     # Uppercase and replace dashes with underscores for env var naming
     ENV_REMOTE_NAME=$(echo "$REMOTE_NAME" | tr '[:lower:]-' '[:upper:]_')
@@ -80,9 +84,6 @@ case "$REMOTE_TYPE" in
         RCLONE_CMD="$RCLONE_CMD --read-only --dir-cache-time 168h --vfs-cache-mode full"
         ;;
 esac
-
-# Add common stability options
-RCLONE_CMD="$RCLONE_CMD --log-level INFO"
 
 # Add any extra options passed as arguments
 if [ -n "$EXTRA_OPTIONS" ]; then
