@@ -1,5 +1,5 @@
 name = "rclone-ftp-auto-mount"
-command = "/opt/rclone-mount.sh ftp :/ /mnt/ftp --ftp-no-check-certificate --ftp-tls=false --ftp-explicit-tls=true"
+command = "/opt/rclone-mount.sh ftp / /mnt/ftp --ftp-no-check-certificate --ftp-tls=false --ftp-explicit-tls=true"
 
 [restart]
 strategy = "never"
