@@ -1,5 +1,5 @@
 FROM federicoponzi/horust:v0.1.9 as horust
-FROM bitnami/rclone:1.69.3-debian-12-r3 as rclone
+FROM bitnami/rclone:1.70.3-debian-12-r3 as rclone
 
 FROM deluan/navidrome:0.58.0 as navidrome
 
