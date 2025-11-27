@@ -1,4 +1,4 @@
-FROM federicoponzi/horust:v0.1.9 as horust
+FROM federicoponzi/horust:0.1.10 as horust
 FROM bitnami/rclone:1.70.3-debian-12-r3 as rclone
 
 FROM deluan/navidrome:0.58.5 as navidrome
