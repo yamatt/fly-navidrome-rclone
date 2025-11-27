@@ -1,5 +1,5 @@
 FROM federicoponzi/horust:0.1.10 as horust
-FROM bitnami/rclone:1.70.3-debian-12-r3 as rclone
+FROM rclone/rclone:1.72.0 as rclone
 
 FROM deluan/navidrome:0.58.5 as navidrome
 
@@ -8,7 +8,7 @@ FROM ubuntu:24.04
 COPY --from=horust /sbin/horust /opt/horust
 COPY ./services /etc/services
 
-COPY --from=rclone /opt/bitnami/rclone/bin/rclone /opt/rclone
+COPY --from=rclone /usr/local/bin/rclone /opt/rclone
 
 RUN apt-get update --yes && \
     apt-get install --no-install-recommends --no-install-suggests --yes fuse3=3.14.0-5build1 ca-certificates=20240203 ffmpeg=7:6.1.1-3ubuntu5 && \
