@@ -3,7 +3,7 @@ FROM rclone/rclone:1.74.1 as rclone
 
 FROM deluan/navidrome:0.61.2 as navidrome
 
-FROM ubuntu:24.04
+FROM ubuntu:26.04
 
 COPY --from=horust /sbin/horust /opt/horust
 COPY ./services /etc/services
