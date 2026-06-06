@@ -21,7 +21,7 @@ jobs:
     name: Validate Fly.io config
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v6.0.2
       - uses: superfly/flyctl-actions/setup-flyctl@master
       - name: Validate config
         run: flyctl config validate  --app ${{ secrets.FLY_APP_NAME }}
@@ -31,7 +31,7 @@ jobs:
     name: Run Hadolint on Dockerfile
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v6.0.2
       - name: Check Docker files with Hadolint
         uses: essentialkaos/hadolint-action@v1
         with:
@@ -47,7 +47,7 @@ jobs:
       - dockerfile-lint
     concurrency: fly-deploy-group # optional: ensure only one action runs at a time
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v6.0.2
       - uses: superfly/flyctl-actions/setup-flyctl@master
       - name: Deploy latest
         run: flyctl deploy --remote-only --config fly.toml --app ${{
