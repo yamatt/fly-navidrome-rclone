@@ -1,5 +1,5 @@
 FROM ghcr.io/federicoponzi/horust:0.1.13 as horust
-FROM rclone/rclone:1.74.2 as rclone
+FROM rclone/rclone:1.74.3 as rclone
 
 FROM deluan/navidrome:0.61.2 as navidrome
 
