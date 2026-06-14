@@ -39,6 +39,20 @@ jobs:
           format: tty
           strict-labels: true
           failure-threshold: warning
+  test-build-run:
+    name: Test run Dockerfile
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6.0.3
+      - name: Test run Dockerfile
+        run: docker build --pull --no-cache --progress=plain --tag test-run .
+      - name: Test run Dockerfile
+        run: docker run -d -p 8080:8080 test-run
+      - name: Check app is running
+        run: |
+          sleep 5
+          curl -s http://localhost:8080/ | grep -q "Found"
+
   deploy:
     name: Deploy app
     runs-on: ubuntu-latest

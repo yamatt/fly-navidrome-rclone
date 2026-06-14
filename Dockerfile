@@ -1,7 +1,7 @@
 FROM ghcr.io/federicoponzi/horust:0.1.13 as horust
 FROM rclone/rclone:1.74.3 as rclone
 
-FROM ghcr.io/navidrome/navidrome@sha256:c4b5cb36a790b3eb63ca6a68bbe2fe149c2d7fa2e586f7a480e61db630e6664b as navidrome
+FROM ghcr.io/navidrome/navidrome:0.61.2 as navidrome
 
 FROM ubuntu:26.04
 
