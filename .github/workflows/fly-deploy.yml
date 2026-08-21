@@ -51,7 +51,6 @@ jobs:
           docker run -d --name test-run -p 8080:8080 test-run
           docker logs test-run
       - name: Check app is running
-        continue-on-error: true # no idea why this fails. It works fine locally
         run: |
           sleep 5
           curl -s http://localhost:8080/ | grep -q "Found"

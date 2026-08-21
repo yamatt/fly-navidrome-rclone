@@ -11,7 +11,12 @@ COPY ./services /etc/services
 COPY --from=rclone /usr/local/bin/rclone /opt/rclone
 
 RUN apt-get update --yes && \
-    apt-get install --no-install-recommends --no-install-suggests --yes fuse3=3.18.2-1 ca-certificates=20260223 ffmpeg=7:8.0.1-3ubuntu2 && \
+    apt-get install --no-install-recommends --no-install-suggests --yes \
+    fuse3=3.18.2-1 \
+    ca-certificates=20260223 \
+    ffmpeg=7:8.0.1-3ubuntu2 \
+    musl \
+    gcompat && \
     apt-get clean autoclean --yes && \
     apt-get autoremove --yes && \
     rm -rf /var/cache/apt/archives* /var/lib/apt/lists/* && \
