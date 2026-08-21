@@ -47,7 +47,9 @@ jobs:
       - name: Test run Dockerfile
         run: docker build --pull --no-cache --progress=plain --tag test-run .
       - name: Test run Dockerfile
-        run: docker run -d -p 8080:8080 test-run
+        run: |
+          docker run -d --name test-run -p 8080:8080 test-run
+          docker logs test-run
       - name: Check app is running
         run: |
           sleep 5
