@@ -15,8 +15,8 @@ RUN apt-get update --yes && \
     fuse3=3.18.2-1 \
     ca-certificates=20260223 \
     ffmpeg=7:8.0.1-3ubuntu2 \
-    musl \
-    gcompat && \
+    musl=1.2.5-3build1= && \
+    ln -s /lib/x86_64-linux-gnu/libc.musl-x86_64.so.1 /lib/libc.musl-x86_64.so.1 && \
     apt-get clean autoclean --yes && \
     apt-get autoremove --yes && \
     rm -rf /var/cache/apt/archives* /var/lib/apt/lists/* && \
