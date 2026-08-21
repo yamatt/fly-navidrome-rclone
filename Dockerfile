@@ -10,13 +10,14 @@ COPY ./services /etc/services
 
 COPY --from=rclone /usr/local/bin/rclone /opt/rclone
 
-RUN apt-get update --yes && \
+RUN sed -i 's/Components: main/Components: main universe/' /etc/apt/sources.list.d/ubuntu.sources && \
+    apt-get update --yes && \
     apt-get install --no-install-recommends --no-install-suggests --yes \
     fuse3=3.18.2-1 \
     ca-certificates=20260223 \
     ffmpeg=7:8.0.1-3ubuntu2 \
-    musl=1.2.5-3build1= && \
-    ln -s /lib/x86_64-linux-gnu/libc.musl-x86_64.so.1 /lib/libc.musl-x86_64.so.1 && \
+    musl=1.2.5-3build1 && \
+    ln -s /usr/lib/x86_64-linux-gnu/libc.musl-x86_64.so.1 /lib/libc.musl-x86_64.so.1 && \
     apt-get clean autoclean --yes && \
     apt-get autoremove --yes && \
     rm -rf /var/cache/apt/archives* /var/lib/apt/lists/* && \
