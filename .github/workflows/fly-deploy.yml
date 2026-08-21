@@ -44,7 +44,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v7.0.1
-      - name: Test run Dockerfile
+      - name: Test build Dockerfile
         run: docker build --pull --no-cache --progress=plain --tag test-run .
       - name: Test run Dockerfile
         run: |
