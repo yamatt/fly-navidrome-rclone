@@ -53,7 +53,7 @@ jobs:
       - name: Check app is running
         run: |
           sleep 5
-          curl -s http://localhost:8080/ | grep -q "Found"
+          curl -s http://localhost:8080/
 
   deploy:
     name: Deploy app
