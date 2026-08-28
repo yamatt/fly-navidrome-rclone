@@ -61,27 +61,31 @@ fi
 
 # Create mount directory if it doesn't exist
 mkdir -p "$MOUNT_POINT"
+mkdir -p /data/cache/rclone
 
 # Build the rclone command - use remote name directly
 RCLONE_CMD="/opt/rclone mount ${REMOTE_NAME}${REMOTE_PATH} ${MOUNT_POINT}"
 
+# Shared low-footprint cache settings for ephemeral disk
+CACHE_FLAGS="--cache-dir /data/cache/rclone --vfs-cache-max-size 500M --vfs-cache-max-age 1h --vfs-read-chunk-size 8M --vfs-read-chunk-size-limit 64M"
+
 # Add backend-specific optimizations
 case "$REMOTE_TYPE" in
     b2)
-        # B2 optimized settings - handles many transfers well
-        RCLONE_CMD="$RCLONE_CMD --read-only --transfers 20 --dir-cache-time 720h --vfs-cache-mode full --checkers 8"
+        # B2 optimized settings - lightweight VFS reads
+        RCLONE_CMD="$RCLONE_CMD --read-only --transfers 20 --dir-cache-time 720h --vfs-cache-mode minimal --checkers 8 $CACHE_FLAGS"
         ;;
     ftp)
-        # FTP optimized settings - more conservative
-        RCLONE_CMD="$RCLONE_CMD --read-only --transfers 4 --dir-cache-time 24h --vfs-cache-mode full --tpslimit 10"
+        # FTP optimized settings - conservative
+        RCLONE_CMD="$RCLONE_CMD --read-only --transfers 4 --dir-cache-time 24h --vfs-cache-mode minimal --tpslimit 10 $CACHE_FLAGS"
         ;;
     sftp)
-        # SFTP settings - similar to FTP but can handle more
-        RCLONE_CMD="$RCLONE_CMD --read-only --transfers 8 --dir-cache-time 48h --vfs-cache-mode full --tpslimit 20"
+        # SFTP settings
+        RCLONE_CMD="$RCLONE_CMD --read-only --transfers 8 --dir-cache-time 48h --vfs-cache-mode minimal --tpslimit 20 $CACHE_FLAGS"
         ;;
     *)
         # Generic defaults for other backends
-        RCLONE_CMD="$RCLONE_CMD --read-only --dir-cache-time 168h --vfs-cache-mode full"
+        RCLONE_CMD="$RCLONE_CMD --read-only --dir-cache-time 168h --vfs-cache-mode minimal $CACHE_FLAGS"
         ;;
 esac
 
