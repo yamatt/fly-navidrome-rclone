@@ -1,4 +1,4 @@
-FROM ghcr.io/federicoponzi/horust:0.1.13 as horust
+FROM ghcr.io/federicoponzi/horust:0.1.14 as horust
 FROM rclone/rclone:1.75.0 as rclone
 
 FROM ghcr.io/navidrome/navidrome:0.63.2 as navidrome
