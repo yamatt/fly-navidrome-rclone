@@ -22,7 +22,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v7.0.1
-      - uses: superfly/flyctl-actions/setup-flyctl@master
+      - uses: superfly/flyctl-actions/setup-flyctl@1.6
       - name: Validate config
         run: flyctl config validate  --app ${{ secrets.FLY_APP_NAME }}
         env:
@@ -33,11 +33,8 @@ jobs:
     steps:
       - uses: actions/checkout@v7.0.1
       - name: Check Docker files with Hadolint
-        uses: essentialkaos/hadolint-action@v1
+        uses: hadolint/hadolint-action@v3.5.0
         with:
-          files: Dockerfile
-          format: tty
-          strict-labels: true
           failure-threshold: warning
   test-build-run:
     name: Test run Dockerfile
@@ -66,7 +63,7 @@ jobs:
     concurrency: fly-deploy-group # optional: ensure only one action runs at a time
     steps:
       - uses: actions/checkout@v7.0.1
-      - uses: superfly/flyctl-actions/setup-flyctl@master
+      - uses: superfly/flyctl-actions/setup-flyctl@1.6
       - name: Deploy latest
         run: flyctl deploy --remote-only --config fly.toml --app ${{
           secrets.FLY_APP_NAME }}
